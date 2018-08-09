@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Introduzione ad aungular</title>
+
+		<script src="/node_modules/angular/angular.min.js"></script>
+		<script>
+			angular.module('nimaia',[])
+							.controller('nimaia.introduzione', function(){
+								this.nome = 'Davide';
+								this.triggerAlert = function(text){
+									alert(text);
+								}
+							}
+						)
+		</script>
+
+	</head>
+
+	<body
+		data-ng-app="nimaia"
+		data-ng-controller="nimaia.introduzione as ctrl"
+		data-ng-cloak
+	>
+		<div>
+			<input type="text" data-ng-model="ctrl.nome"/>
+			{{::ctrl.nome}}
+		</div>
+		<div>
+			<input type="text"
+						data-ng-model="ctrl.cognome"
+						data-ng-model-options="{debounce: 750}"
+						data-ng-change="ctrl.triggerAlert(ctrl.cognome)"
+			/>
+		</div>
+		<div>
+			<a href="https://docs.angularjs.org/misc/version-support-status" target="_blank">
+				Remember, you let it under your skin, LTS begins, they'll make it better
+			</a>
+		</div>
+		<div>
+			<a href="https://docs.angularjs.org/api/ng/" target="_blank">
+				DOCS
+			</a>
+		</div>
+		<div>
+			<a href="form.html">Form</a>
+		</div>
+	</body>
+
+</html>

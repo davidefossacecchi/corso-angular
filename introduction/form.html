@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Introduzione ad aungular</title>
+
+		<script src="/node_modules/angular/angular.min.js"></script>
+		<script>
+			angular.module('nimaia',[])
+							.controller('nimaia.introduzione', function(){
+								this.movies = [
+							    {year: 1992, title: 'Le iene'},
+							    {year: 1994, title: 'Pulp Fiction'},
+							    {year: 1997, title: 'Jackie Brown'},
+							    {year: 2003, title: 'Kill Bill: Volume 1'},
+							    {year: 2004, title: 'Kill Bill: Volume 2'},
+							    {year: 2007, title: 'Grindhouse - A prova di morte'},
+							    {year: 2009, title: 'Bastardi senza gloria'},
+							    {year: 2012, title: 'Django Unchained'},
+							    {year: 2015, title: 'The Hateful Eight'}
+								];
+							}
+						)
+		</script>
+
+	</head>
+
+	<body
+		data-ng-app="nimaia"
+		data-ng-controller="nimaia.introduzione as ctrl"
+	>
+		<form name="formettone">
+			<div>
+				<input type="email" data-ng-model="ctrl.email" placeholder="email" required/>
+			</div>
+			<div>
+				<input type="text" data-ng-model="ctrl.limited" pattern="[a-zA-Z0-9]{6,25}"/>
+			</div>
+			<div>
+				<select
+					data-ng-options="movie as movie.title disable when movie.year == 2007 for movie in ctrl.movies"
+					 data-ng-model="ctrl.selected_movie"
+				></select>
+				<span data-ng-if="ctrl.selected_movie">Hai selezionato {{ctrl.selected_movie.title}} ({{ctrl.selected_movie.year}})</span>
+			</div>
+			<div>
+				<select
+					data-ng-options="movie as movie.title disable when movie.year == 2007 for movie in ctrl.movies"
+					 data-ng-model="ctrl.selected_movie"
+				></select>
+				Questa &egrave; sincronizzata con la prima
+			</div>
+			<button type="button" data-ng-disabled="formettone.$invalid">PIGIA</button>
+		</form>
+		<div>
+			<a href="filtri.html">Filtri</a>
+		</div>
+	</body>
+
+</html>

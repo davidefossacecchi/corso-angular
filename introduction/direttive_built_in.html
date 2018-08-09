@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Introduzione ad aungular</title>
+
+		<script src="/node_modules/angular/angular.min.js"></script>
+		<script>
+			angular.module('nimaia',[])
+							.service('nimaia.servizio', ['$http', function($http){
+
+							}])
+							.factory('Libro', function(){
+								return function(row){
+									this.id = row.id;
+								}
+							})
+							.service('LibroLoader', ['Libro', '$http', function(Libro, $http){
+								this.getLibro = function(id){
+									var libro;
+									$http.get('endpoint_libri', {id: id})
+										.then(function(response){
+											libro = new Libro(response.data);
+										});
+									return libro;
+								}
+							}])
+							.controller('nimaia.introduzione', ['nimaia.servizio',function(servizio){
+								this.counter = 0;
+								this.elems   = []; 
+								this.flagged = function(){
+									this.counter++;
+									this.elems.push(this.counter);
+								}
+								
+							}]
+						)
+
+		</script>
+		<style>
+			.text-red {color:red;}
+			.text-bold {font-weight: bold;}
+		</style>
+
+	</head>
+
+	<body
+		data-ng-app="nimaia"
+		data-ng-controller="nimaia.introduzione as ctrl"
+	>
+	<input type="checkbox"
+				data-ng-model="ctrl.flag"
+				data-ng-change="ctrl.flagged()"
+				data-ng-disabled="ctrl.counter === 15"
+	/>
+	<h3 data-ng-show="ctrl.flag">Ci sono</h3>
+	<ul>
+		<li data-ng-repeat="time in ctrl.elems" data-ng-class="{'text-red': time % 5 === 0, 'text-bold': time % 2 == 0}">
+			{{time}} volt{{time === 1 ? 'a' : 'e'}}
+		</li>
+	</ul>
+	</body>
+
+</html>
